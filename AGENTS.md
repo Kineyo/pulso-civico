@@ -51,4 +51,6 @@ Nunca `git add .` — agregar solo archivos modificados.
 - Arquitectura: `docs/ARQUITECTURA.md`
 - Formato de datos: `docs/DATA_SCHEMA.md`
 - Crear scraper: `docs/COMO_CREAR_UN_SCRAPER.md`
-- Fuentes: `docs/FUENTES.md`
+- Fuentes y cobertura: `docs/FUENTES_Y_COBERTURA.md`
+- Colaboración sin Git: `docs/PIPELINE_STAGING.md`
+- Preservación e integridad: `docs/PRESERVACION_E_INTEGRIDAD.md`

@@ -1,7 +1,7 @@
 # Cómo crear un scraper (nueva legislatura o fuente)
 
 ## 1. Antes de programar
-1. Revisa [FUENTES.md](FUENTES.md) y abre un Issue **"Nueva fuente"** para reservarla.
+1. Revisa [FUENTES_Y_COBERTURA.md](FUENTES_Y_COBERTURA.md) y abre un Issue **"Nueva fuente"** para reservarla.
 2. Revisa `robots.txt` del portal.
 3. Guarda 2-3 páginas de ejemplo (HTML) para probar sin golpear el servidor.
 
@@ -56,7 +56,7 @@ final class CongresoEjemploScraperService
 - [ ] Cada registro tiene `metadata.fuente_url` y `metadata.fecha_extraccion`.
 - [ ] Rate limit ≥ 1000 ms; sin peticiones en paralelo.
 - [ ] Sin datos personales no públicos.
-- [ ] Fila actualizada en `docs/FUENTES.md`.
+- [ ] Fila actualizada en `docs/FUENTES_Y_COBERTURA.md`.
 
 ## 5. Prompt sugerido para tu IA
 ```

@@ -60,4 +60,20 @@ class GitOps
             'summary' => implode("\n", $output),
         ];
     }
+
+    /**
+     * Ejecuta un subcomando git arbitrario.
+     */
+    public static function execGit(string $cmd): array
+    {
+        $output = [];
+        $code = 0;
+        exec("git {$cmd} 2>&1", $output, $code);
+        return [
+            'code' => $code,
+            'output' => $output,
+            'raw' => implode("\n", $output),
+        ];
+    }
 }
+

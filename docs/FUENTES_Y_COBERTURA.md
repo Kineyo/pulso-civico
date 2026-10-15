@@ -1,20 +1,36 @@
-# Mapa de Cobertura y Tareas por Estado (32 Congresos Locales)
+# Catálogo de Fuentes Oficiales y Cobertura por Estado
 
-> **Regla de adopción:** Si vas a scrapear un estado, abre un Issue en GitHub con el nombre `[Scraper] Congreso de <Estado>` o coméntalo en el grupo para asignártelo aquí.
+> **Regla de adopción:** Si vas a scrapear un estado o integrar una nueva fuente, abre un Issue en GitHub con el título `[Scraper] Congreso de <Estado>` o `[Nueva fuente] <Nombre>` para asignártelo aquí.
 > 
 > **Convención de archivos:** `storage/data/json/congreso_<estado_slug>_leg_<numero>.json`  
-> **Convención de scraper:** `src/Services/Scrapers/Congreso<Estado>ScraperService.php`
+> **Convención de scraper:** `src/Services/Scrapers/Congreso<Estado>ScraperService.php` (o en `src/Services/`)
 
 ---
 
 ## Leyenda de Estado
-- ✅ **Completado**: Dataset integrado en `main`, verificado con SHA-256 y fuente `.gob.mx`.
+- ✅ **Completado / Cubierta**: Dataset integrado en `main`, verificado con SHA-256 y fuente `.gob.mx`.
 - 🚧 **En Progreso**: Asignado a un colaborador con branch/PR activo.
-- 🙋 **Disponible**: Pendiente de asignar. ¡Cualquiera puede adoptarlo!
+- 🙋 **Disponible / Busca voluntario**: Pendiente de asignar. ¡Cualquiera puede adoptarlo!
 
 ---
 
-## Tabla de Avance de las 32 Entidades
+## 1. Fuentes Federales y Órganos Autónomos
+
+| Fuente | URL | Datos | Estado | Responsable |
+|---|---|---|---|---|
+| SIL – SEGOB | http://sil.gobernacion.gob.mx | Legisladores LXVI, perfiles, comisiones, trayectoria, fotos | ✅ | Core |
+| SITL – Cámara de Diputados | https://sitl.diputados.gob.mx/LXVI_leg/ | Votaciones nominales, asistencias LXVI | ✅ | Core |
+| SIL – legislaturas anteriores (LX–LXV) | http://sil.gobernacion.gob.mx | Históricos para seguir trayectorias | 🙋 | — |
+| SITL – legislaturas anteriores | https://sitl.diputados.gob.mx | Votaciones históricas | 🙋 | — |
+| Senado de la República | https://www.senado.gob.mx | Senadores, votaciones, asistencias | 🙋 | — |
+| Gaceta Parlamentaria | https://gaceta.diputados.gob.mx | Iniciativas, dictámenes | 🙋 | — |
+| Diario de los Debates | https://cronica.diputados.gob.mx | Qué dijo cada legislador en tribuna | 🙋 | — |
+| INE – Cómputos y candidaturas | https://www.ine.mx | Candidaturas, coaliciones, resultados | 🙋 | — |
+| Declaranet / PNT | https://www.plataformadetransparencia.org.mx | Declaraciones patrimoniales públicas | 🙋 | — |
+
+---
+
+## 2. Congresos Locales (32 Entidades Federativas)
 
 | ID | Entidad Federativa | Portal Oficial | Legislaturas | Estado | Responsable / PR |
 |---|---|---|---|---|---|
@@ -53,17 +69,37 @@
 
 ---
 
-## Protocolo para Reclamar y Entregar un Estado
+## 3. Noticias y Medios (Fase Posterior)
 
-1. **Reclamar un estado**:
-   - Avisa en el grupo o abre un Issue en GitHub: *"Tomo el Congreso de Jalisco"*.
+| Medio | RSS | Estado |
+|---|---|---|
+| *(por definir en comunidad, priorizando pluralidad editorial)* | — | 🙋 Busca voluntario |
+
+---
+
+## 4. Reglas para Agregar Fuentes
+- Debe ser **oficial** (dominio `.gob.mx`, órgano autónomo constitucional) o medio periodístico formalmente identificable.
+- Revisar `robots.txt` y términos de uso antes de scrapear.
+- Documentar formato original (HTML, PDF, CSV, API) y frecuencia de actualización estimada.
+
+---
+
+## 5. Protocolo para Reclamar y Entregar un Estado o Fuente
+
+1. **Reclamar**:
+   - Avisa en el grupo o abre un Issue en GitHub: *"Tomo el Congreso de <Estado>"* o *"Nueva fuente: <Nombre>"*.
    - Se actualiza la tabla marcando 🚧 **En Progreso** y tu nombre/usuario de GitHub.
 2. **Crear el Scraper**:
-   - Programar en `src/Services/Scrapers/Congreso<Estado>ScraperService.php`.
-   - Seguir `docs/COMO_CREAR_UN_SCRAPER.md`.
-   - Rate limit mínimo: 1,000 ms.
+   - Programar en `src/Services/Scrapers/Congreso<Estado>ScraperService.php` (o `src/Services/`).
+   - Seguir [`docs/COMO_CREAR_UN_SCRAPER.md`](COMO_CREAR_UN_SCRAPER.md).
+   - Rate limit mínimo: 1,000 ms; sin peticiones en paralelo.
 3. **Subir los datos con evidencia**:
    - Los registros deben incluir `fuente_url` al portal oficial `.gob.mx` y hash SHA-256 de respaldo.
 4. **Validación y Merge**:
-   - Correr en terminal: `powershell -File .\tools\run.ps1 lint:dir src/Services`
-   - Someter Pull Request para auditoría automatizada (`tools/run.ps1 audit:pr`).
+   - Validar sintaxis y salud del proyecto:
+     ```bash
+     php tools/gateway.php lint "<archivos_modificados>"
+     php tools/gateway.php health
+     ```
+     *(En Windows: `powershell -ExecutionPolicy Bypass -File .\tools\run.ps1 lint "<archivos>"`)*
+   - Someter Pull Request para auditoría automatizada.

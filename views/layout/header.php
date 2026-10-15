@@ -31,6 +31,9 @@ $homeUrl = Router::url('/');
     <meta name="twitter:description" content="<?= ViewHelper::e($pageDesc) ?>">
     <meta name="twitter:image" content="<?= ViewHelper::e($ogImage) ?>">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="<?= Router::url('/assets/favicon.svg') ?>">
+
     <!-- Bootstrap 5.3 CSS & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">

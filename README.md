@@ -1,10 +1,34 @@
 # 🇲🇽 Pulso Cívico — Guía y Documentación del Proyecto
+<p align="center">
+  <img src="assets/Titulo_Web.png" alt="Pulso Cívico — Plataforma de Transparencia Política" width="750">
+</p>
+
+<p align="center">
+  <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.1+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP 8.1+"></a>
+  <a href="docs/STACK_TECNOLOGICO.md"><img src="https://img.shields.io/badge/SQL-MySQL%20%2F%20SQLite-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="SQL"></a>
+  <a href="https://www.sqlite.org/"><img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite"></a>
+  <a href="storage/data/json/"><img src="https://img.shields.io/badge/JSON-Datasets-000000?style=for-the-badge&logo=json&logoColor=white" alt="JSON Datasets"></a>
+  <a href="https://developer.mozilla.org/es/docs/Web/JavaScript"><img src="https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"></a>
+  <a href="https://getbootstrap.com/"><img src="https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap 5.3"></a>
+  <a href="https://developer.mozilla.org/es/docs/Web/HTML"><img src="https://img.shields.io/badge/HTML5-Sem%C3%A1ntico-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5"></a>
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-Scrapers-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Licencia-AGPL--3.0-blue.svg?style=for-the-badge" alt="Licencia AGPL-3.0"></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-Bienvenidas-brightgreen.svg?style=for-the-badge" alt="PRs Bienvenidas"></a>
+</p>
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=php,mysql,sqlite,js,html,css,bootstrap,py,git,github" alt="Iconos de Tecnologías" />
+</p>
 
 > **Plataforma ciudadana, neutral y de código abierto para la transparencia política en México.**
 
 Cruzamos **datos oficiales del gobierno** con **noticias** para mostrar el historial real de cada representante popular: qué iniciativas presentan, cómo votan en el pleno, su trayectoria partidista y el fenómeno del "chapulineo" (cambio de partido). 
 
 **Objetivo único:** Facilitar un **voto informado y consciente**.
+
+> [!TIP]
+> **¿Eres periodista, investigador o ciudadano y quieres aportar datos sin saber programar?**  
+> No necesitas saber Git ni código para colaborar. Consulta la guía rápida y canales de envío (incluso anónimos) en **[docs/PIPELINE_STAGING.md](docs/PIPELINE_STAGING.md)**.
 
 ---
 
@@ -18,13 +42,20 @@ Cruzamos **datos oficiales del gobierno** con **noticias** para mostrar el histo
    - Cero opiniones, cero adjetivos, cero propaganda partidista.
 3. **Arquitectura Low-Cost y de Fácil Acceso:**
    - **Cero frameworks pesados** (sin Laravel, sin Symfony).
-   - **Cero bases de datos complejas** (sin MySQL/PostgreSQL): los datos viven en archivos JSON en `storage/data/json/` versionados directamente con Git.
+   - **Bases de datos ágiles e híbridas (SQL / JSON):** Cero configuración local gracias a SQLite (`storage/database.sqlite`) o MySQL en producción, conviviendo con datasets JSON versionados en `storage/data/json/`.
    - **Cero herramientas de compilación frontend** (Bootstrap 5 vía CDN y JavaScript Vanilla nativo).
    - Cualquier persona puede correrlo en su computadora en 2 minutos.
+4. **Grafo Cívico Interconectado (Todo es un hipervínculo):**
+   - En lugar de un directorio estático, modela a los actores políticos como una red navegable a través del tiempo.
+   - **Persona Invariante vs. Mandatos Temporales:** La identidad del político trasciende legislaturas. Desacoplar a la persona de sus cargos permite auditar suplencias, dinastías y cambios de partido a lo largo de los años ("detector de chapulines").
+   - **Hipervínculos Bidireccionales:** Políticos, mandatos, partidos, comisiones, entidades y votaciones están enlazados entre sí.
 
 ---
 
 ## 🧭 ¿Qué hay hoy y qué es lo que falta?
+<p align="center">
+  <img src="assets/Mapa_CDMX.png" alt="Mapa Político de la República Mexicana y Ciudad de México" width="750">
+</p>
 
 ### ✅ Lo que ya está construido:
 - **Cámara de Diputados Federal (LXVI Legislatura 2024–2027):** 500 perfiles con foto, comisiones, suplentes y trayectoria.
@@ -36,7 +67,7 @@ Cruzamos **datos oficiales del gobierno** con **noticias** para mostrar el histo
 ### 🚧 Lo que falta (¡Dónde se necesita más ayuda!):
 1. **Congresos Estatales Pendientes (22 estados):**
    - Faltan scrapers y datos de estados clave como: **CDMX, Jalisco, Estado de México, Puebla, Guanajuato, Veracruz, Michoacán, Oaxaca, Chihuahua, Chiapas, Aguascalientes, Querétaro**, entre otros.
-   - Ver el avance detallado en [docs/ESTADOS_COBERTURA.md](docs/ESTADOS_COBERTURA.md).
+   - Ver el avance detallado en [docs/FUENTES_Y_COBERTURA.md](docs/FUENTES_Y_COBERTURA.md).
 2. **Senado de la República:**
    - El portal hoy cuenta con Cámara de Diputados federal y congresos locales; falta incorporar la Cámara de Senadores (perfiles, votaciones y asistencias).
 3. **Trazabilidad Histórica y UI:**
@@ -55,7 +86,7 @@ Cruzamos **datos oficiales del gobierno** con **noticias** para mostrar el histo
 |---|---|---|
 | **Programador PHP / Python** | Crear scrapers para congresos estatales faltantes, estandarizar servicios o añadir tests. | [docs/COMO_CREAR_UN_SCRAPER.md](docs/COMO_CREAR_UN_SCRAPER.md) y [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) |
 | **Frontend / Diseñador** | Mejorar la experiencia móvil (*mobile-first*), diseño de tarjetas de legisladores, accesibilidad y visualizaciones interactivas. | [views/](views/) y [docs/backlog/ISSUE_02_FRONTEND_CONMUTADOR_LEGISLATURAS.md](docs/backlog/ISSUE_02_FRONTEND_CONMUTADOR_LEGISLATURAS.md) |
-| **Investigador / Periodista** | Localizar portales oficiales de congresos locales, verificar datos contra gacetas oficiales y documentar fuentes. | [docs/FUENTES.md](docs/FUENTES.md) y [CONTRIBUTING.md](CONTRIBUTING.md) |
+| **Investigador / Periodista** | Aportar gacetas, actas, verificar fuentes o enviar datos sin programar (incluso de forma anónima). | [docs/PIPELINE_STAGING.md](docs/PIPELINE_STAGING.md) y [docs/FUENTES_Y_COBERTURA.md](docs/FUENTES_Y_COBERTURA.md) |
 | **Principiante / Estudiante** | Resolver tareas `good first issue`, documentar, reportar inconsistencias o agregar datos asistido por IA. | [AGENTS.md](AGENTS.md) y [docs/DICCIONARIO_DE_DATOS.md](docs/DICCIONARIO_DE_DATOS.md) |
 
 ---
@@ -220,8 +251,9 @@ git push -u origin feat/mi-primera-contribucion
 ├── docs/                # Arquitectura, esquemas de datos y manuales
 │   ├── ARQUITECTURA.md  # Detalle del funcionamiento técnico
 │   ├── DATA_SCHEMA.md   # Estructura de los archivos JSON
-│   ├── ESTADOS_COBERTURA.md # Estado de avance de los 32 estados
-│   ├── FUENTES.md       # Directorio de fuentes oficiales
+│   ├── FUENTES_Y_COBERTURA.md # Catálogo de fuentes oficiales y cobertura por estado
+│   ├── PIPELINE_STAGING.md # Guía para aportar datos sin programar (Buzón Staging)
+│   ├── PRESERVACION_E_INTEGRIDAD.md # Estrategia de preservación e integridad de datos
 │   └── COMO_CREAR_UN_SCRAPER.md # Guía para nuevos scrapers
 ├── index.php            # Punto de entrada único (Front Controller)
 ├── src/
@@ -240,6 +272,7 @@ git push -u origin feat/mi-primera-contribucion
 
 ## 🤝 Enlaces y Documentación Adicional
 
+- [docs/STACK_TECNOLOGICO.md](docs/STACK_TECNOLOGICO.md) — Stack tecnológico y filosofía de arquitectura.
 - [CONTRIBUTING.md](CONTRIBUTING.md) — Normas de contribución y flujo de trabajo.
 - [AGENTS.md](AGENTS.md) — Instrucciones y restricciones para asistentes de IA (Cursor, Copilot, Claude, Gemini).
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Código de conducta y principios de neutralidad.

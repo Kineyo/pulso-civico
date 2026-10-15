@@ -317,7 +317,8 @@ switch ($action) {
                 if (str_starts_with($f, 'storage/data/json/congreso_') || 
                     str_starts_with($f, 'src/Services/') || 
                     str_ends_with($f, '.py') || 
-                    $f === 'docs/ESTADOS_COBERTURA.md') {
+                    $f === 'docs/ESTADOS_COBERTURA.md' ||
+                    $f === 'docs/FUENTES_Y_COBERTURA.md') {
                     
                     $outCo = [];
                     $code = 0;
@@ -341,7 +342,7 @@ switch ($action) {
 
     case 'ship:prs':
         $filesToStage = [
-            'docs/ESTADOS_COBERTURA.md',
+            'docs/FUENTES_Y_COBERTURA.md',
             'tools/core/ScraperRouter.php',
             'tools/gateway.php',
             'tools/core/coahuila_parser.py',
