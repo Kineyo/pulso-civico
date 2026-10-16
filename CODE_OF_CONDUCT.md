@@ -21,6 +21,6 @@ Pulso Cívico es un espacio abierto a cualquier persona, sin importar ideología
 - Spam o propaganda política.
 
 ## Aplicación
-Reporta conductas a los mantenedores por mensaje privado (Telegram) o al correo en `SECURITY.md`. Las consecuencias van desde advertencia hasta expulsión del proyecto.
+Reporta conductas a los mantenedores por mensaje privado [(Telegram)](https://t.me/c/3988513813/1) o al correo en [SECURITY.md](SECURITY.md). Las consecuencias van desde advertencia hasta expulsión del proyecto.
 
 Basado en el [Contributor Covenant 2.1](https://www.contributor-covenant.org/es/version/2/1/code_of_conduct/).

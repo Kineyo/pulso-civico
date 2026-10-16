@@ -39,7 +39,8 @@ index.old.php
 Thumbs.db
 desktop.ini
 
-# --- Caché de herramientas ---
+# --- Caché de herramientas y carpetas personales ---
 .phpunit.cache/
 .phpstan.cache/
-TAREAS_Y_CONTRIBUCIONES.md
+kineyo/
+

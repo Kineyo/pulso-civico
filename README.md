@@ -61,20 +61,23 @@ Cruzamos **datos oficiales del gobierno** con **noticias** para mostrar el histo
 - **Cámara de Diputados Federal (LXVI Legislatura 2024–2027):** 500 perfiles con foto, comisiones, suplentes y trayectoria.
 - **Votaciones y Asistencias:** Votaciones nominales y registro de asistencias al pleno.
 - **Histórico Federal (LXI a LXV Legislaturas):** Datasets históricos del Congreso de la Unión.
-- **Congresos Estatales Iniciales:** Datasets de Baja California, Baja California Sur, Durango, Coahuila, Nuevo León, Quintana Roo, Sinaloa, Sonora, Tamaulipas y Yucatán.
+- **Congresos Estatales (Cobertura Total en las 32 Entidades):** Los 32 estados de la República Mexicana cuentan con datasets históricos completos y extractores desarrollados: Aguascalientes, Baja California, Baja California Sur, Campeche, Chiapas, Chihuahua, Ciudad de México (CDMX), Coahuila, Colima, Durango, Estado de México, Guanajuato, Guerrero, Hidalgo, Jalisco, Michoacán, Morelos, Nayarit, Nuevo León, Oaxaca, Puebla, Querétaro, Quintana Roo, San Luis Potosí, Sinaloa, Sonora, Tabasco, Tamaulipas, Tlaxcala, Veracruz, Yucatán y Zacatecas.
+- **Poder Ejecutivo Estatal (Gobernadores Históricos 1989–2030):** Cronología oficial y datasets de 8 estados (Aguascalientes, Baja California, Baja California Sur, Tamaulipas, Tlaxcala, Veracruz, Yucatán y Zacatecas) en `storage/data/json/ejecutivo/`.
+- **Cimientos de Backend en Python (FastAPI + Pydantic):** Arquitectura asíncrona paralela, soporte Docker/Tor y módulo de auditoría ciudadana de actas electorales (`app/`).
 - **Interfaz Web:** Buscador global (`Ctrl+K`), mapa interactivo por entidad, fichas de perfil de políticos, explorador por comisiones y estudios estadísticos.
 
 ### 🚧 Lo que falta (¡Dónde se necesita más ayuda!):
-1. **Congresos Estatales Pendientes (22 estados):**
-   - Faltan scrapers y datos de estados clave como: **CDMX, Jalisco, Estado de México, Puebla, Guanajuato, Veracruz, Michoacán, Oaxaca, Chihuahua, Chiapas, Aguascalientes, Querétaro**, entre otros.
-   - Ver el avance detallado en [docs/FUENTES_Y_COBERTURA.md](docs/FUENTES_Y_COBERTURA.md).
-2. **Senado de la República:**
-   - El portal hoy cuenta con Cámara de Diputados federal y congresos locales; falta incorporar la Cámara de Senadores (perfiles, votaciones y asistencias).
-3. **Trazabilidad Histórica y UI:**
+1. **Poder Ejecutivo Estatal (24 entidades restantes):**
+   - Completar las cronologías y biografías institucionales de los mandatarios estatales pendientes.
+2. **Base de Conocimientos en JSON y Contrastación Cívica ("Datos en Contra"):**
+   - Matriz de verificación cruzada para contrastar datos declarados frente a fuentes duras: Registro Nacional de Profesionistas (SEP) para cédulas, declaraciones patrimoniales 3de3 / PNT, y discrepancias entre votaciones en comisiones vs asistencias.
+3. **Extracción Alternativa para Comunidades y Municipios Pequeños:**
+   - Métodos resilientes para extraer información de ayuntamientos rurales sin depender del scraping directo a Facebook (vía SIPOT/PNT, Periódicos Oficiales y metadatos abiertos).
+4. **Senado de la República:**
+   - Incorporar los 128 Senadores de la LXVI Legislatura (perfiles, votaciones y comisiones).
+5. **Trazabilidad Histórica y UI:**
    - Conmutador visual de pastillas por legislatura en [views/politico.php](views/politico.php) para alternar entre mandatos (ej. ver cómo votó en la LXIV vs LXVI legislatura).
-4. **Módulo de Noticias y Hechos:**
-   - Vincular notas periodísticas de fuentes acreditadas a votaciones polémicas o cambios de bancada.
-5. **Calidad de Código y Limpieza:**
+6. **Calidad de Código y Limpieza:**
    - Dividir clases grandes (>400 líneas) como `DataService.php` o `SilIngestService.php`.
    - Estandarizar una `ScraperInterface` común para facilitar la creación de scrapers.
 
@@ -84,7 +87,7 @@ Cruzamos **datos oficiales del gobierno** con **noticias** para mostrar el histo
 
 | Tu Perfil | Tareas Recomendadas | Guías de Referencia |
 |---|---|---|
-| **Programador PHP / Python** | Crear scrapers para congresos estatales faltantes, estandarizar servicios o añadir tests. | [docs/COMO_CREAR_UN_SCRAPER.md](docs/COMO_CREAR_UN_SCRAPER.md) y [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) |
+| **Programador PHP / Python** | Scrapers para gobernadores restantes, matriz de contrastación o estandarizar servicios. | [docs/COMO_CREAR_UN_SCRAPER.md](docs/COMO_CREAR_UN_SCRAPER.md) y [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) |
 | **Frontend / Diseñador** | Mejorar la experiencia móvil (*mobile-first*), diseño de tarjetas de legisladores, accesibilidad y visualizaciones interactivas. | [views/](views/) y [docs/backlog/ISSUE_02_FRONTEND_CONMUTADOR_LEGISLATURAS.md](docs/backlog/ISSUE_02_FRONTEND_CONMUTADOR_LEGISLATURAS.md) |
 | **Investigador / Periodista** | Aportar gacetas, actas, verificar fuentes o enviar datos sin programar (incluso de forma anónima). | [docs/PIPELINE_STAGING.md](docs/PIPELINE_STAGING.md) y [docs/FUENTES_Y_COBERTURA.md](docs/FUENTES_Y_COBERTURA.md) |
 | **Principiante / Estudiante** | Resolver tareas `good first issue`, documentar, reportar inconsistencias o agregar datos asistido por IA. | [AGENTS.md](AGENTS.md) y [docs/DICCIONARIO_DE_DATOS.md](docs/DICCIONARIO_DE_DATOS.md) |
@@ -109,17 +112,30 @@ sudo apt install -y php-cli php-curl php-mbstring php-xml
 
 ---
 
-### 2. Configuración y ejecución en 3 pasos:
+### 2. Configuración y ejecución local:
 
+#### Opción A: Servidor PHP Standalone (Rápido y ligero)
 ```bash
 # 1. Copiar archivo de entorno
 cp .env.example .env
 
-# 2. Iniciar el servidor local de PHP
+# 2. Iniciar el servidor embebido de PHP
 php -S localhost:8000
 ```
-
 Abre tu navegador en: [http://localhost:8000](http://localhost:8000)
+
+#### Opción B: Contenedor Docker Compose (FastAPI + Soporte P2P)
+```bash
+# Iniciar nodo en contenedores
+docker compose up -d
+```
+Abre tu navegador en: [http://localhost:8000](http://localhost:8000)
+
+#### 3. Chequeo de Salud del Repositorio:
+```bash
+# Valida sintaxis PHP y consistencia de datasets/directorios
+php tools/gateway.php health
+```
 
 ---
 
@@ -247,24 +263,29 @@ git push -u origin feat/mi-primera-contribucion
 ## 🗂️ Estructura del Proyecto
 
 ```text
+├── app/                 # Servidor asíncrono Python (FastAPI, esquemas Pydantic, Jinja2)
 ├── config/              # Configuración general (.env)
 ├── docs/                # Arquitectura, esquemas de datos y manuales
 │   ├── ARQUITECTURA.md  # Detalle del funcionamiento técnico
 │   ├── DATA_SCHEMA.md   # Estructura de los archivos JSON
 │   ├── FUENTES_Y_COBERTURA.md # Catálogo de fuentes oficiales y cobertura por estado
 │   ├── PIPELINE_STAGING.md # Guía para aportar datos sin programar (Buzón Staging)
+│   ├── PLAN_MIGRACION_PYTHON.md # Plan de transición a Python y red P2P
+│   ├── PODER_EJECUTIVO_ESTADOS.md # Estándar de cronología de gobernadores
 │   ├── PRESERVACION_E_INTEGRIDAD.md # Estrategia de preservación e integridad de datos
 │   └── COMO_CREAR_UN_SCRAPER.md # Guía para nuevos scrapers
-├── index.php            # Punto de entrada único (Front Controller)
+├── docker-compose.yml   # Orquestación de nodos y contenedor de réplicas
+├── Dockerfile           # Imagen base para entorno Python/FastAPI
+├── index.php            # Punto de entrada único PHP (Front Controller)
 ├── src/
 │   ├── Controllers/     # WebController (controladores web)
 │   ├── Core/            # Router, HttpClient, ViewHelper, Logger
 │   ├── DTO/             # Contratos de datos tipados (Legislador, Votación, Sesión)
-│   └── Services/        # Lectura de datos (DataService) y Scrapers
+│   └── Services/        # DataService, EjecutivoEstatalService y Scrapers
 ├── storage/
-│   ├── data/json/       # Datasets maestros en JSON (la "base de datos")
+│   ├── data/json/       # Datasets maestros en JSON (Legislaturas y Ejecutivo)
 │   └── raw/             # Caché cruda de HTML y fotos oficiales
-├── tools/               # Scripts CLI y runners de mantenimiento
+├── tools/               # Scripts CLI y runners de mantenimiento (gateway.php)
 └── views/               # Plantillas PHP/HTML y componentes Bootstrap
 ```
 
@@ -273,6 +294,8 @@ git push -u origin feat/mi-primera-contribucion
 ## 🤝 Enlaces y Documentación Adicional
 
 - [docs/STACK_TECNOLOGICO.md](docs/STACK_TECNOLOGICO.md) — Stack tecnológico y filosofía de arquitectura.
+- [docs/PLAN_MIGRACION_PYTHON.md](docs/PLAN_MIGRACION_PYTHON.md) — Arquitectura FastAPI y descentralización P2P.
+- [docs/PODER_EJECUTIVO_ESTADOS.md](docs/PODER_EJECUTIVO_ESTADOS.md) — Esquema de titulares del Ejecutivo Estatal.
 - [CONTRIBUTING.md](CONTRIBUTING.md) — Normas de contribución y flujo de trabajo.
 - [AGENTS.md](AGENTS.md) — Instrucciones y restricciones para asistentes de IA (Cursor, Copilot, Claude, Gemini).
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Código de conducta y principios de neutralidad.

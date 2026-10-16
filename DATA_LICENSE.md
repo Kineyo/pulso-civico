@@ -1,6 +1,6 @@
 # Licencia de los datos
 
-Los datasets generados por Pulso Cívico (`storage/data/`) se publican bajo
+Los datasets generados por Pulso Cívico [(`storage/data/`)](storage/data/) se publican bajo
 **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)**:
 https://creativecommons.org/licenses/by/4.0/deed.es
 
